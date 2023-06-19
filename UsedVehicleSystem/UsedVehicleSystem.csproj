@@ -1,0 +1,41 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Views\Ilan\IlanArama.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="Views\SistemYoneticisi\GirisYap.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Controllers\NewFile.txt" />
+    <None Remove="Controllers\SistemYoneticisiController" />
+    <None Remove="Models\Arac" />
+    <None Remove="Models\AracModeli" />
+    <None Remove="Models\NewFile.txt" />
+    <None Remove="Models\NewFile1.txt" />
+    <None Remove="Repository\NewFile.txt" />
+    <None Remove="Services\NewFile.txt" />
+    <None Remove="Views\Ilan\IlanKarsilastir.html" />
+    <None Remove="Views\Ilan\NewFile.txt" />
+    <None Remove="Views\SistemYoneticisi\NewFile.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.5" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="7.0.5" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.5" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.5">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+</Project>
