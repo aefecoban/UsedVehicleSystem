@@ -1,0 +1,27 @@
+﻿@if ((@ViewBag?.Hata ?? "").Length > 0)
+{
+    <div class="alert alert-danger">
+        <p>@ViewBag.Hata</p>
+    </div>
+}
+
+<form id="loginForm" method="post" asp-controller="SistemYoneticisi" asp-action="GirisYap">
+    <div class="card">
+        <div class="card-header">
+            <h2>Giriş Yap</h2>
+        </div>
+        <div class="card-body">
+            <div class="mb-3">
+                <label for="loginTakmaAd" class="form-label">Takma Ad</label>
+                <input type="text" class="form-control" id="takmaAd" name="takmaAd" placeholder="Takma adinizi girin" required>
+            </div>
+            <div class="mb-3">
+                <label for="loginSifre" class="form-label">Şifre</label>
+                <input type="password" class="form-control" id="sifre" name="sifre" placeholder="Şifrenizi girin" required>
+            </div>
+        </div>
+        <div class="card-footer">
+            <button type="submit" class="btn btn-primary">Giriş Yap</button>
+        </div>
+    </div>
+</form>

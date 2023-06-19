@@ -1,0 +1,53 @@
+﻿@if (ViewBag.AracMarka != null)
+{
+    var aracMarka = (AracMarkasi)@ViewBag.AracMarka;
+
+    <div class="alert alert-info">
+        <b>Başarıyla Eklendi</b>
+        <p>@aracMarka.markaAdi</p>
+    </div>
+}
+
+@if(ViewBag.Hata != null)
+{
+    @if(ViewBag.Hata != "")
+    {
+        <div class="alert alert-danger">
+            @ViewBag.Hata
+        </div>
+    }
+}
+
+<div class="container">
+    <h1>Araç Marka Ekle</h1>
+    <form asp-controller="SistemYoneticisi" asp-action="AracMarkaEkle">
+        <div class="form-group">
+            <label for="modelAdi">Marka Adı:</label>
+            <input type="text" class="form-control" id="markaAdi" name="markaAdi">
+        </div>
+        <button type="submit" class="btn btn-primary">Ekle</button>
+    </form>
+</div>
+
+@{
+    var Markalar = (List<AracMarkasi>)ViewBag.Markalar ?? new List<AracMarkasi>() { };
+}
+
+<div class="container">
+    <table class="table">
+    <thead>
+    <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Marka Adı</th>
+    </tr>
+    </thead>
+    <tbody>
+        @foreach(var Marka in Markalar){
+            <tr>
+                <td scope="col">@Marka.ID</td>
+                <td scope="col">@Marka.markaAdi</td>
+            </tr>
+        }
+    </tbody>
+</table>
+</div>

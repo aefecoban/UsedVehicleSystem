@@ -1,0 +1,30 @@
+﻿@model List<Ilan>
+<div class="card">
+    <div class="card-header"><h3 class="title text-center">Onay Bekleyenler</h3></div>
+    <div class="card-body">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Ilan Adı</th>
+                    <th scope="col">Ilan Fiyatı</th>
+                    <th scope="col">Ilan Durumu</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (Ilan ilan in Model)
+                {
+                    @if(!ilan.onayliMi)
+                    {
+                        <tr>
+                            <td>@ilan.ID</td>
+                            <td>@ilan.ilanAdi</td>
+                            <td>@ilan.ilanFiyati</td>
+                            <td><a class="btn btn-success" href="/SistemYoneticisi/IlanOnayla?ID=@ilan.ID">Onayla</a></td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

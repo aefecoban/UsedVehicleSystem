@@ -1,0 +1,163 @@
+﻿@{
+
+    var aracSaticisi = (AracSaticisi)ViewBag.AracSaticisi;
+    var ilan = (Ilan)ViewBag.Ilan ?? null;
+
+}
+
+<script>
+    let Modeller = [
+        @{
+        var modeller = (List<AracModeli>)ViewBag.Modeller;
+        foreach(var m in modeller){
+            @: {
+            @:     ID : @m.ID,
+            @:     modelAdi : '@m.modelAdi',
+            @:     sanziman : '@m.sanziman',
+            @:     yakitTuru: '@m.yakitTuru',
+            @:     motorTuru: '@m.motorTuru',
+            @:     aracTuru : '@m.aracTuru',
+            @:     uretimYili: @m.uretimYili
+            @: },
+        }
+        }
+    ];
+    let Markalar = [
+    @{
+        var markalar = (List<AracMarkasi>)ViewBag.Markalar;
+        foreach(var m in markalar)
+        {
+            @: {
+            @:    ID : '@m.ID',
+            @:    MarkaAdi : '@m.markaAdi'
+            @: },
+        }
+    }
+    ];
+
+    $(() => {
+        let selectElement = document.querySelector('select[name="aracModelID"]');
+
+        selectElement.addEventListener('change', function() {
+            
+            let selectedValue = this.value;
+            let selectedModel = {}
+            Modeller.map((model) => {
+                if(model.ID == selectedValue){
+                    selectedModel = model;
+                }
+            });
+            console.log(selectedValue);
+            console.log(selectedModel);
+            console.log(Modeller);
+            document.getElementById('aracTuru').value = selectedModel.aracTuru;
+            document.getElementById('sanziman').value = selectedModel.sanziman;
+            document.getElementById('yakitTuru').value = selectedModel.yakitTuru;
+            document.getElementById('motorTuru').value = selectedModel.motorTuru;
+            document.getElementById('uretimYili').value = selectedModel.uretimYili;
+        });
+    });
+
+</script>
+
+@if(ilan != null){
+<p> @ilan.ilanAdi = @ilan.ilanFiyati = @ilan.aracSaticisi.ad - @ilan.aracSaticisi.soyad </p>
+}
+<div class="alert alert-primary" role="alert">
+  @aracSaticisi.ad - @aracSaticisi.soyad - @aracSaticisi.eposta - @aracSaticisi.sifre - @aracSaticisi.telefonNumarasi
+</div>
+<form method="post" asp-controller="Ilan" asp-action="IlanEkle">
+  <div class="container">
+    <div class="card">
+        <div class="card-header"><h4 class="title text-center">İlan Oluştur</h4></div>
+        <div class="card-body">
+            <div class="row">
+      <div class="col">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title text-center">İlan</h5>
+              <div class="mb-3">
+                <label for="ilanAdi" class="form-label">İlan Adı</label>
+                <input type="text" class="form-control" name="ilanAdi" id="ilanAdi">
+              </div>
+              <div class="mb-3">
+                <label for="ilanFiyati" class="form-label">İlan Fiyatı</label>
+                <input type="text" class="form-control" name="ilanFiyati" id="ilanFiyati">
+              </div>
+              <div class="mb-3">
+                <label for="ilanFiyati" class="form-label">İlan Fotograflari</label>
+                <input type="text" class="form-control" name="ilanFotografleri" id="ilanFotografleri">
+              </div>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Araç</h5>
+              <div class="mb-3">
+                <label for="aracMarkasi" class="form-label">Araç Markası</label>
+                <select class="form-select" name="aracMarkasiID" id="aracMarkasi">
+                    @foreach(var m in markalar)
+                    {
+                        <option value="@m.ID">@m.markaAdi</option>
+                    }
+                </select>
+              </div>
+              <div class="mb-3">
+                <label for="aracModeli" class="form-label">Araç Modeli</label>
+                <select class="form-select" name="aracModelID" id="aracModeli">
+                  @foreach(var m in modeller){
+                      <option value="@m.ID">@m.modelAdi</option>
+                  }
+                </select>
+              </div>
+              <div class="mb-3">
+                <label for="ilanFotograflari" class="form-label">Araç Donanımları</label>
+                <input type="text" name="AracDonanimlari" class="form-control"></input>
+                <p class="card-subtitle">Lütfen donanımları virgül(,) ile ayırın.</p>
+              </div>
+              <div class="mb-3">
+                <label for="kilometre" class="form-label">Kilometre</label>
+                <input type="number" class="form-control" name="kilometre" id="kilometre">
+              </div>
+              <div class="mb-3">
+                <label for="aracTuru" class="form-label">Araç Türü</label>
+                <input type="text" class="form-control" id="aracTuru" readonly>
+              </div>
+              <div class="mb-3">
+                <label for="sanziman" class="form-label">Şanzıman</label>
+                <input type="text" class="form-control" id="sanziman" readonly>
+              </div>
+              <div class="mb-3">
+                <label for="yakitTuru" class="form-label">Yakıt Türü</label>
+                <input type="text" class="form-control" id="yakitTuru" readonly>
+              </div>
+              <div class="mb-3">
+                <label for="motorTuru" class="form-label">Motor Türü</label>
+                <input type="text" class="form-control" id="motorTuru" readonly>
+              </div>
+              <div class="mb-3">
+                <label for="uretimYili" class="form-label">Üretim Yılı</label>
+                <input type="text" class="form-control" id="uretimYili" readonly>
+              </div>
+              
+          </div>
+        </div>
+      </div>
+    </div>
+        </div>
+        <div class="card-footer">
+                <div class="row">
+                    <div class="col-4"></div>
+                <div class="col-4 text-center">
+                        <a asp-controller="Ilan" asp-action="Ilanlar" class="btn btn-danger rounded-pill">Geri</a>
+                </div>
+                 <div class="col-4 text-center">
+                        <button type="submit" class="btn btn-primary rounded-pill">Onaya Gönder</button>
+                 </div>
+            </div>
+        </div>
+    </div>
+  </div>
+  </form>

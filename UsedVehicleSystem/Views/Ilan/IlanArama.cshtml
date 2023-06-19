@@ -1,0 +1,14 @@
+﻿
+<a asp-controller="Ilan" asp-action="Ilanlar" class="btn btn-danger rounded-pill">Geri</a>
+<p>Arama Sonuçları:</p>
+<ul>
+@{
+    var ilanlar = (List<Ilan>)ViewBag.Ilanlar;
+    var filtre = (Ilan)ViewBag.Filtre;
+
+    @foreach(var ilan in ilanlar)
+    {
+        <li class="box shadow-sm rounded p-2 m-2">@ilan.ilanAdi - (@ilan.ilanFiyati)</li>
+    }
+    }
+</ul>

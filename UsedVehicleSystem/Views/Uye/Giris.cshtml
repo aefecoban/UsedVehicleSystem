@@ -1,0 +1,28 @@
+﻿@if ((@ViewBag?.Hata ?? "").Length > 0)
+{
+    <div class="alert alert-danger">
+        <p>@ViewBag.Hata</p>
+    </div>
+}
+
+<form id="loginForm" method="post" asp-controller="Uye" asp-action="GirisYap">
+    <div class="card">
+        <div class="card-header">
+            <h2>Giriş Yap</h2>
+        </div>
+        <div class="card-body">
+            <div class="mb-3">
+                <label for="loginEmail" class="form-label">E-posta</label>
+                <input type="email" class="form-control" id="eposta" name="eposta" placeholder="E-posta adresinizi girin" required>
+            </div>
+            <div class="mb-3">
+                <label for="loginPassword" class="form-label">Şifre</label>
+                <input type="password" class="form-control" id="sifre" name="sifre" placeholder="Şifrenizi girin" required>
+            </div>
+        </div>
+        <div class="card-footer">
+            <a asp-controller="Uye" asp-action="Index" class="btn btn-danger rounded-pill">Geri</a>
+            <button type="submit" class="btn btn-primary rounded-pill">Giriş Yap</button>
+        </div>
+    </div>
+</form>

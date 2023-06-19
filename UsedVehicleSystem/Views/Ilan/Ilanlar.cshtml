@@ -1,0 +1,168 @@
+﻿@model List<Ilan>
+@{
+
+    var Markalar = (List<AracMarkasi>)ViewBag.Markalar;
+    var Modeller = (List<AracModeli>)ViewBag.Modeller;
+
+    #region Arama
+<form asp-controller="Ilan" asp-action="IlanArama">
+        <div class="card my-2">
+            <div class="card-body">
+                <div class="row mb-3">
+                    <div class="col">
+                        <input type="text" class="form-control" name="ilanAdi" placeholder="İlan Adı">
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col">
+                        <select class="form-control" name="AracTuru">
+                            <option value="">-</option>
+                            @foreach (var M in Modeller)
+                            {
+                                <option value="@M.aracTuru">@M.aracTuru</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="col">
+                        <input type="text" class="form-control" name="UretimYili" placeholder="Üretim Yılı">
+                    </div>
+                    <div class="col">
+                        <select class="form-control" name="Marka">
+                            <option value="">-</option>
+                            @foreach (var Marka in Markalar)
+                            {
+                                <option value="@Marka.ID">@Marka.markaAdi</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col">
+                        <select class="form-control" name="Model">
+                            <option value="">-</option>
+                            @foreach (var M in Modeller)
+                            {
+                                <option value="@M.ID">@M.modelAdi</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="col">
+                        <select class="form-control" name="YakitTuru">
+                            <option value="">-</option>
+                            @foreach (var M in Modeller)
+                            {
+                                <option value="@M.yakitTuru">@M.yakitTuru</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="col">
+                        <select class="form-control" name="MotorTuru">
+                            <option value="">-</option>
+                            @foreach (var M in Modeller)
+                            {
+                                <option value="@M.motorTuru">@M.motorTuru</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col">
+                        <select class="form-control" name="Sanziman">
+                            <option value="">-</option>
+                            @foreach (var M in Modeller)
+                            {
+                                <option value="@M.sanziman">@M.sanziman</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="col">
+                        <input type="text" class="form-control" name="Kilometre" placeholder="Kilometre">
+                    </div>
+                    <div class="col">
+                        <input type="text" class="form-control" name="ilanFiyati" placeholder="Satış Fiyatı">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="d-flex justify-content-between">
+                            <button type="reset" class="btn btn-secondary">Temizle</button>
+                            <button type="submit" class="btn btn-primary">Ara</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</form>
+#endregion
+}
+
+<div class="card">
+    <div class="card-header">
+        <div class="row text-center">
+            <div class="col-4">
+                <button class="btn btn-danger rounded-pill">Geri Dön</button>
+            </div>
+            <div class="col-4 text-center">
+                <h3 class="title">İlanlar</h3>
+            </div>
+            <div class="col-4">
+                <button id="compareBtn" class="btn btn-primary mb-3 rounded-pill" disabled>Karşılaştır</button>
+            </div>
+        </div>
+    </div>
+    <div class="card-body">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Ilan Karşılaştır</th>
+                    <th scope="col">Ilan Adı</th>
+                    <th scope="col">Ilan Fiyatı</th>
+                    <th scope="col">Ilan Görüntüle</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (Ilan ilan in Model)
+                {
+                    @if(ilan.onayliMi && ilan.yayindaMi)
+                    {
+                        <tr>
+                            <td><input class="form-check-input compareCheckbox" type="checkbox" id="@ilan.ID"></td>
+                            <td>@ilan.ilanAdi</td>
+                            <td>@ilan.ilanFiyati</td>
+                            <td><a class="btn btn-success rounded-pill" href="/Ilan/IlanGoruntule?ID=@ilan.ID">Göster</a></td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('.compareCheckbox').change(function () {
+            var selectedCount = $('.compareCheckbox:checked').length;
+            if (selectedCount >= 2) {
+                $('.compareCheckbox').not(':checked').prop('disabled', true);
+            } else {
+                $('.compareCheckbox').prop('disabled', false);
+            }
+
+            if (selectedCount < 2) {
+                $('#compareBtn').prop('disabled', true);
+            } else {
+                $('#compareBtn').prop('disabled', false);
+            }
+        });
+
+        $('#compareBtn').click(function () {
+            var selectedIds = [];
+            $('.compareCheckbox:checked').each(function () {
+                selectedIds.push($(this).attr('id'));
+            });
+            if(selectedIds.length > 1){
+                window.location.href = '@Url.Action("IlanKarsilastir", "Ilan")' + '?ilanID1=' + selectedIds[0] + '&ilanID2=' + selectedIds[1];;
+            }
+        });
+    });
+</script>

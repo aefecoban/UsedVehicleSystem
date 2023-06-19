@@ -1,0 +1,292 @@
+﻿@model Ilan
+
+@{
+
+    var aracSaticisi = (AracSaticisi)ViewBag.AracSaticisi;
+    var ilan = (Ilan)ViewBag.Ilan ?? null;
+}
+
+<script>
+    let Modeller = [
+        @{
+        var modeller = (List<AracModeli>)ViewBag.Modeller;
+        foreach(var m in modeller){
+            @: {
+            @:     ID : @m.ID,
+            @:     modelAdi : '@m.modelAdi',
+            @:     sanziman : '@m.sanziman',
+            @:     yakitTuru: '@m.yakitTuru',
+            @:     motorTuru: '@m.motorTuru',
+            @:     aracTuru : '@m.aracTuru',
+            @:     uretimYili: @m.uretimYili
+            @: },
+        }
+        }
+    ];
+    let Markalar = [
+    @{
+        var markalar = (List<AracMarkasi>)ViewBag.Markalar;
+        foreach(var m in markalar)
+        {
+            @: {
+            @:    ID : '@m.ID',
+            @:    MarkaAdi : '@m.markaAdi'
+            @: },
+        }
+    }
+    ];
+
+    $(() => {
+        let selectElement = document.querySelector('select[name="aracModelID"]');
+
+        selectElement.addEventListener('change', function() {
+            
+            let selectedValue = this.value;
+            let selectedModel = {}
+            Modeller.map((model) => {
+                if(model.ID == selectedValue){
+                    selectedModel = model;
+                }
+            });
+            console.log(selectedValue);
+            console.log(selectedModel);
+            console.log(Modeller);
+            document.getElementById('aracTuru').value = selectedModel.aracTuru;
+            document.getElementById('sanziman').value = selectedModel.sanziman;
+            document.getElementById('yakitTuru').value = selectedModel.yakitTuru;
+            document.getElementById('motorTuru').value = selectedModel.motorTuru;
+            document.getElementById('uretimYili').value = selectedModel.uretimYili;
+        });
+    });
+</script>
+
+<form method="post" asp-controller="Ilan" asp-action="IlanGuncelle">
+    <input type="text" value="@Model.ID" name="ID" hidden style="display: none;" />
+    <input type="text" value="@Model.ilandakiAracID" name="ilandakiAracID" hidden style="display: none;" />
+    <input type="text" value="@Model.aracSaticisiID" name="aracSaticisiID" hidden style="display: none;" />
+<div class="card">
+	<div class="card-header">
+            <a class="btn btn-danger rounded-pill" asp-controller="Home" asp-action="Index">Geri Git</a>
+        @if (ViewBag.CanIEdit)
+        {
+            <input type="text" value="@Model.ilanAdi" name="ilanAdi" />
+                <button type="submit" class="ml-auto btn btn-primary rounded-pill">Kaydet</button>
+            }
+        else
+        {
+            <h2>@Model.ilanAdi</h2>
+        }
+
+	</div>
+	<div class="card-body">
+        <div class="row">
+                <div class="col-6">
+                    <div class="mb-3">
+                        <label for="ilanFiyati" class="form-label">İlan Fiyatı</label>
+                        @if (ViewBag.CanIEdit)
+                        {
+                            <input type="number" value="@Model.ilanFiyati" name="ilanFiyati" />
+                        }
+                        else
+                        {
+                            <p>@Model.ilanFiyati</p>
+                        }
+                    </div>
+                    <div class="mb-3">
+                        <p for="ilanFiyati" class="col-6">
+                            Satıcı</label>
+                            @if (Model.aracSaticisi != null)
+                            {
+                            <p class="col-6">@Model.aracSaticisi.ad @Model.aracSaticisi.soyad</p>
+                            }
+                    </div>
+                    <div class="mb-3">
+                        <label for="ilanFotograflari" class="col-6">İlan Fotoğrafları</label>
+                        <div class="col-1">
+                            <div class="card">
+                                <img src="" class="card-img-top" alt="Foto1">
+                            </div>
+                        </div>
+                        <div class="col-1">
+                            <div class="card">
+                                <img src="" class="card-img-top" alt="Foto2">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <p for="aracMarkasi" class="col-6">Araç Markası</p>
+                        @if (ViewBag.CanIEdit)
+                        {
+                            <select class="form-select" name="aracMarkasiID" id="aracMarkasi">
+                                @foreach (var m in markalar)
+                                {
+                                    @if (m.ID == @Model.ilandakiArac.aracMarkasiID)
+                                    {
+                                        <option value="@m.ID" selected>@m.markaAdi</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@m.ID">@m.markaAdi</option>
+                                    }
+                                }
+                            </select>
+                        }
+                        else
+                        {
+                            <p class="col-6">@Model.ilandakiArac.aracMarkasi.markaAdi</p>
+                        }
+                    </div>
+                    <div class="mb-3">
+                        <p for="aracModeli" class="col-6">Araç Modeli</p>
+                        @if (ViewBag.CanIEdit)
+                        {
+                            <select class="form-select" name="aracModelID" id="aracModeli">
+                                @foreach (var m in modeller)
+                                {
+                                    @if (m.ID == @Model.ilandakiArac.aracModeliID)
+                                    {
+                                        <option value="@m.ID" selected>@m.modelAdi</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@m.ID">@m.modelAdi</option>
+                                    }
+                                }
+                            </select>
+                        }
+                        else
+                        {
+                            <p class="col-6">@Model.ilandakiArac.aracModeli.modelAdi</p>
+                        }
+                    </div>
+                    <div class="mb-3">
+                        <p for="kilometre" class="col-6">Kilometre</p>
+                        @if (ViewBag.CanIEdit)
+                        {
+                            <input type="text" value="@Model.ilandakiArac.kilometre" name="kilometre" />
+                        }
+                        else
+                        {
+                            <p class="col-6">@Model.ilandakiArac.kilometre</p>
+                        }
+                    </div>
+
+                </div>
+                <div class="col-6">
+                    <div class="mb-3">
+                        <p for="aracTuru" class="col-6">Araç Türü</p>
+                        @if (ViewBag.CanIEdit)
+                        {
+                            <input type="text" value="@Model.ilandakiArac.aracModeli.aracTuru" name="aracTuru" readonly />
+                        }
+                        else
+                        {
+                            <p class="col-6">@Model.ilandakiArac.aracModeli.aracTuru</p>
+                        }
+                    </div>
+                    <div class="mb-3">
+                        <p for="sanziman" class="col-6">Şanzıman</p>
+                        @if (ViewBag.CanIEdit)
+                        {
+                            <input type="text" value="@Model.ilandakiArac.aracModeli.sanziman" name="sanziman" readonly />
+                        }
+                        else
+                        {
+                            <p class="col-6">@Model.ilandakiArac.aracModeli.sanziman</p>
+                        }
+                    </div>
+                    <div class="mb-3">
+                        <p for="yakitTuru" class="col-6">Yakıt Türü</p>
+                        @if (ViewBag.CanIEdit)
+                        {
+                            <input type="text" value="@Model.ilandakiArac.aracModeli.yakitTuru" name="yakitTuru" readonly />
+                        }
+                        else
+                        {
+                            <p class="col-6">@Model.ilandakiArac.aracModeli.yakitTuru</p>
+                        }
+                    </div>
+                    <div class="mb-3">
+                        <p for="motorTuru" class="col-6">Motor Türü</p>
+                        @if (ViewBag.CanIEdit)
+                        {
+                            <input type="text" value="@Model.ilandakiArac.aracModeli.motorTuru" name="motorTuru" readonly />
+                        }
+                        else
+                        {
+                            <p class="col-6">@Model.ilandakiArac.aracModeli.motorTuru</p>
+                        }
+                    </div>
+                    <div class="mb-3">
+                        <p for="uretimYili" class="col-6">Üretim Yılı</p>
+                        @if (ViewBag.CanIEdit)
+                        {
+                            <input type="text" value="@Model.ilandakiArac.aracModeli.uretimYili" name="uretimYili" readonly />
+                        }
+                        else
+                        {
+                            <p class="col-6">@Model.ilandakiArac.aracModeli.uretimYili</p>
+                        }
+                    </div>
+                    <div class="mb-3">
+                        <p class="col-6">Araç Donanımları</p>
+                        <ul class="col-6">
+                            @foreach (AracDonanimi donanim in (@Model.ilandakiArac?.aracDonanimlari ?? new List<AracDonanimi>()))
+                            {
+                                <li>@donanim.donanimAdi</li>
+                            }
+                        </ul>
+                    </div>
+
+                </div>
+        </div>
+        
+        <hr />
+
+
+            @if (ViewBag.CanIEdit)
+            {
+            }
+            else
+            {
+                <div class="box">
+                    <form asp-controller="Ilan" asp-action="YorumYap">
+                        <div class="col-6 mb-2">
+                            <div class="form-group">
+                                <label>Adınız Soyadınız:</label>
+                                <input type="text" class="form-control" name="musteriAdi" value="@ViewBag.Uye.ad @ViewBag.Uye.soyad" style="user-select: none; cursor: default; pointer-events: none;" readonly />
+                            </div>
+                        </div>
+                        <div class="col-6 mb-2">
+                            <div class="form-group">
+                                <label for="yorumIcerigi">Yorumunuz:</label>
+                                <textarea name="yorumIcerigi" class="form-control" id="yorumIcerigi"></textarea>
+                            </div>
+                            <div class="form-group my-2">
+                                <button type="submit" class="btn btn-primary rounded-pill">Yorum Yap</button>
+                            </div>
+                        </div>
+                        <input type="text" name="AracSaticisiID" value="@Model.aracSaticisiID" hidden style="display:none">
+                        
+                    </form>
+                </div>
+                <hr />
+            }
+
+        <p>Bu satıcıya yapılmış yorumlar:</p>
+
+        @{
+            var Yorumlar = (List<Yorum>)ViewBag.SaticiyaYapilanYorumar;
+            if(Yorumlar != null){
+                @foreach(Yorum yorum in Yorumlar){
+                    <div class="box shadow-sm rounded m-4 p-3">
+                    <b>@yorum.musteriAdi</b>
+                    <p class="p-2 px-4">@yorum.yorumIcerigi</p>
+                    </div>
+                }
+            }
+        }
+
+    </div>
+    </div>
+</form>

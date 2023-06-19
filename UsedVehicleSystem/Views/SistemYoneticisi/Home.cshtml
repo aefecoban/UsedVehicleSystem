@@ -1,0 +1,18 @@
+﻿@model SistemYoneticisi
+
+<div class="container">
+	<nav class="navbar navbar-expand-lg navbar-light bg-light">
+		<div class="container-fluid">
+			<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+				<li class="nav-item active"><a class="nav-link" asp-controller="SistemYoneticisi" asp-action="Home">Home</a></li>
+				<li class="nav-item"><a class="nav-link" asp-controller="SistemYoneticisi" asp-action="AracMarkaEkle">Marka Ekle</a></li>
+				<li class="nav-item"><a class="nav-link" asp-controller="SistemYoneticisi" asp-action="AracModelEkle">Model Ekle</a></li>
+				<li class="nav-item"><a class="nav-link" asp-controller="SistemYoneticisi" asp-action="Ilanlar">İlanlar</a></li>
+				<li class="nav-item"><a class="nav-link" asp-controller="SistemYoneticisi" asp-action="Araclar">Araçlar</a></li>
+				<li class="nav-item"><a class="btn btn-danger" asp-controller="SistemYoneticisi" asp-action="Cikis">Çıkış</a></li>
+			</ul>
+		</div>
+	</nav>
+</div>
+
+<h1>Hoş geldiniz @Model.takmaAd </h1>

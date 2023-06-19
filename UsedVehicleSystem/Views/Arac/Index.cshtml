@@ -1,0 +1,9 @@
+﻿<h1>Araç Listesi</h1>
+<ul>
+	@for (var i = 0; i < ViewBag.aracs.Length; i++)
+{
+	<li>
+		<a asp-action="Detay" asp-controller="Arac" asp-route-aracID="@i">@ViewBag.aracs[i].aracMarkasi - @ViewBag.aracs[i].aracModeli</a>
+	</li>
+}
+</ul>

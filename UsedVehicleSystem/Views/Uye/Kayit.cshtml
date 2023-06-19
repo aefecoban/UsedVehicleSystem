@@ -1,0 +1,57 @@
+﻿@if ((@ViewBag?.Hata ?? "").Length > 0)
+{
+    <div class="alert alert-danger">
+        <p>@ViewBag.Hata</p>
+    </div>
+}
+
+<form id="registerForm" method="post" asp-controller="Uye" asp-action="KayitOl">
+    <div class="card">
+
+        <div class="card-header">
+            <h2>Kayıt Ol</h2>
+        </div>
+
+	    <div class="card-body">
+                <div class="mb-3">
+                    <label for="firstName" class="form-label">Ad</label>
+                <input type="text" class="form-control" name="ad" id="ad" placeholder="Adınızı girin" required>
+                </div>
+                <div class="mb-3">
+                    <label for="lastName" class="form-label">Soyad</label>
+                <input type="text" class="form-control" name="soyad" id="soyad" placeholder="Soyadınızı girin" required>
+                </div>
+                <div class="mb-3">
+                    <label for="registerEmail" class="form-label">E-posta</label>
+                <input type="email" class="form-control" name="eposta" id="eposta" placeholder="E-posta adresinizi girin" required>
+                </div>
+                <div class="mb-3">
+                    <label for="registerPassword" class="form-label">Şifre</label>
+                <input type="password" class="form-control" name="sifre" id="sifre" placeholder="Şifrenizi girin" required>
+                </div>
+                <div class="mb-3">
+                       <label for="registerPassword" class="form-label">Üyelik Türü</label>
+                        <select class="form-select" name="uyelikTuru">
+                          <option value="1" selected>Müşteri</option>
+                          <option value="2">Araç Satıcısı</option>
+                        </select>
+                </div>
+	    </div>
+        <div class="card-footer">
+            <a asp-controller="Uye" asp-action="Index" class="btn btn-danger rounded-pill">Geri</a>
+            <button type="submit" class="btn btn-primary rounded-pill">Kayıt Ol</button>
+        </div>
+    </div>
+</form>
+<script>
+    const toggleSwitch = document.querySelector("#toggleSwitch");
+    const toggleLabel = document.querySelector("#toggleLabel");
+
+    toggleSwitch.addEventListener("change", function () {
+        if (this.checked) {
+            toggleLabel.textContent = "Araç Satıcısı";
+        } else {
+            toggleLabel.textContent = "Müşteri";
+        }
+    });
+</script>

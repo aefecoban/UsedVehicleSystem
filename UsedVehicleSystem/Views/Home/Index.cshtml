@@ -1,0 +1,58 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+    var uye = (Uye)ViewBag.Uye;
+}
+@if (uye == null)
+{
+    <div class="text-center">
+        <p>Sizde ilanları görüntülemek, satın almak veya kendi aracınızı satmak için Üye olarak giriş yapın.</p>
+        <div class="row justify-content-center mt-5">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="mb-3 row">
+                            <div class="col-6">
+                                <a asp-controller="Uye" asp-action="Giris" class="btn btn-success btn-lg rounded-pill" id="loginButton">Giriş Yap</a>
+                            </div>
+                            <div class="col-6">
+                                <a asp-controller="Uye" asp-action="Kayit" class="btn btn-primary btn-lg rounded-pill" id="registerButton">Kayıt Ol</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <div class="text-center">
+        <div class="row justify-content-center mt-5">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-6 d-grid gap-3 mb-3">
+                                <a asp-controller="Uye" asp-action="Home" class="btn btn-primary btn-lg rounded-pill" id="userHome">Ana Sayfanız</a>
+                                <a asp-controller="Uye" asp-action="Profil" class="btn btn-success btn-lg rounded-pill" id="profil">Profil</a>
+                                @if (ViewBag.MusteriMi != null && ViewBag.MusteriMi == false)
+                                {
+                                    <a asp-controller="Ilan" asp-action="Ilanlarim" class="btn btn-info btn-lg rounded-pill" id="profil">İlanlarım</a>
+                                }
+                            </div>
+                            <div class="col-6 d-grid gap-3 mb-3">
+                                @if (ViewBag.MusteriMi != null && ViewBag.MusteriMi == false)
+                                {
+                                    <a asp-controller="Ilan" asp-action="IlanEkle" class="btn btn-secondary btn-lg rounded-pill" id="profil">Ilan Ekle</a>
+                                }
+                                <a asp-controller="Ilan" asp-action="Ilanlar" class="btn btn-warning btn-lg rounded-pill" id="userHome">Vitrin</a>
+                                <a asp-controller="Uye" asp-action="Cikis" class="btn btn-danger btn-lg rounded-pill" id="userHome">Çıkış Yap</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+

@@ -1,0 +1,80 @@
+﻿@{
+    var Ilan1 = (Ilan)ViewBag.Ilan1;
+    var Ilan2 = (Ilan)ViewBag.Ilan2;
+
+    List<Ilan> ilanlar = new List<Ilan>() { Ilan1, Ilan2 };
+
+
+}
+<div class="card">
+    <div class="card-header">
+        <a class="btn btn-danger text-start rounded-pill" asp-controller="Home" asp-action="Index">Geri Git</a>
+        <h2 class="titlEquals text-center">@Ilan1.ilanAdi | @Ilan2.ilanAdi</h2>
+    </div>
+    <div class="card-body row">
+        
+        @foreach(var ilan in ilanlar)
+        {
+            <div class="col-6">
+                <div class="mb-3">
+                    <label for="ilanFiyati" class="form-label"><strong>İlan Fiyatı</strong></label>
+                        <p>@ilan.ilanFiyati</p>
+                </div>
+                <div class="mb-3">
+                    <strong class="col-6">Satıcı</strong>
+                        @if (ilan.aracSaticisi != null)
+                        {
+                            <p class="col-6">@ilan.aracSaticisi.ad @ilan.aracSaticisi.soyad</p>
+                        }
+
+                </div>
+                <div class="mb-3">
+                        <label for="ilanFotograflari" class="col-6"><strong>İlan Fotoğrafları</strong></label>
+                    <div class="col-1">
+                        <div class="card">
+                            <img src="" class="card-img-top" alt="Foto1">
+                        </div>
+                    </div>
+                    <div class="col-1">
+                        <div class="card">
+                            <img src="" class="card-img-top" alt="Foto2">
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <p for="aracMarkasi" class="col-6"><strong>Araç Markası</strong></p>
+                        <p class="col-6">@ilan.ilandakiArac.aracMarkasi.markaAdi</p>
+                </div>
+                <div class="mb-3">
+                    <p for="aracModeli" class="col-6 title"><strong>Araç Modeli</strong></p>
+                        <p class="col-6">@ilan.ilandakiArac.aracModeli.modelAdi</p>
+                </div>
+                <div class="mb-3">
+                    <p for="kilometre" class="col-6"><strong>Kilometre</strong></p>
+                        <p class="col-6">@ilan.ilandakiArac.kilometre</p>
+                </div>
+                <div class="mb-3">
+                        <p for="aracTuru" class="col-6"><strong>Araç Türü</strong></p>
+                        <p class="col-6">@ilan.ilandakiArac.aracModeli.aracTuru</p>
+                </div>
+                <div class="mb-3">
+                    <p for="sanziman" class="col-6"><strong>Şanzıman</strong></p>
+                        <p class="col-6">@ilan.ilandakiArac.aracModeli.sanziman</p>
+                </div>
+                <div class="mb-3">
+                        <p for="yakitTuru" class="col-6"><strong>Yakıt Türü</strong></p>
+                        <p class="col-6">@ilan.ilandakiArac.aracModeli.yakitTuru</p>
+                </div>
+                <div class="mb-3">
+                        <p for="motorTuru" class="col-6"><strong>Motor Türü</strong></p>
+                    <p class="col-6">@ilan.ilandakiArac.aracModeli.motorTuru</p>
+                </div>
+                <div class="mb-3">
+                        <p for="uretimYili" class="col-6"><strong>Üretim Yılı</strong></p>
+                    <p class="col-6">@ilan.ilandakiArac.aracModeli.uretimYili</p>
+                </div>
+            </div>
+        }
+
+    </div>
+</div>

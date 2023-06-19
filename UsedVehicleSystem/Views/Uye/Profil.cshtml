@@ -1,0 +1,31 @@
+﻿@model Uye
+<div class="card">
+    <div class="card-header">
+        <h5 class="card-title">Profil Bilgileri</h5>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="mb-3">
+                    <label for="name" class="form-label">Ad:</label>
+                    <input type="text" class="form-control" id="name" value="@Model.ad" placeholder="Adınızı girin" readonly>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="mb-3">
+                    <label for="surname" class="form-label">Soyad:</label>
+                    <input type="text" class="form-control" id="surname" value="@Model.soyad" placeholder="Soyadınızı girin" readonly>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="mb-3">
+                    <label for="email" class="form-label">E-posta:</label>
+                    <input type="email" class="form-control" id="email" value="@Model.eposta" placeholder="E-posta adresinizi girin" readonly>
+                </div>
+            </div>
+        </div>
+        <a type="submit" class="btn btn-primary rounded-pill" asp-controller="Uye" asp-action="Home">Ana Sayfaya dön</a>
+    </div>
+</div>

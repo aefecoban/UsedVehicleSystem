@@ -1,0 +1,58 @@
+﻿@model List<Ilan>
+
+<div class="card">
+    <div class="card-header">
+        <div class="row text-center">
+            <div class="col-4">
+                <a asp-controller="Home" asp-action="Index" class="btn btn-danger rounded-pill">Geri Dön</a>
+            </div>
+            <div class="col-4 text-center">
+                <h3 class="title">İlanlarım</h3>
+            </div>
+            <div class="col-4">
+                <a asp-controller="Ilan" asp-action="IlanEkle" class="btn btn-success rounded-pill">İlan Ekle</a>
+            </div>
+        </div>
+    </div>
+    <div class="card-body">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Ilan Adı</th>
+                    <th scope="col">Ilan Fiyatı</th>
+                    <th scope="col">Ilan Durumu</th>
+                    <th scope="col">Ilan Özellikleri</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach(Ilan ilan in Model)
+                {
+                    <tr>
+                        <th scope="row">@ilan.ID</th>
+                        <td>@ilan.ilanAdi</td>
+                        <td>@ilan.ilanFiyati</td>
+                        <td>@if (ilan.yayindaMi){
+                                <p>Yayında</p>
+                            }
+                            else if(ilan.onayliMi)
+                            {
+                                <p>Onaylandı</p>
+                            }
+                            else
+                            {
+                                <p>Onay bekliyor</p>
+                            }
+                        </td>
+                        <td>
+                            <div class="btn-group btn-sm">
+                                <a class="mx-3 btn btn-danger btn-sm rounded-pill" href="/Ilan/IlanSil?id=@ilan.ID">Kaldır</a>
+                                <a class="mx-3 btn btn-primary btn-sm rounded-pill" href="/Ilan/IlanDuzenle?id=@ilan.ID">Düzenle</a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -1,0 +1,37 @@
+﻿@{
+    var uye = (Uye)ViewBag.Uye;
+    var AracSaticisiMi = (bool)ViewBag.AracSaticisiMi;
+}
+<div class="center">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-md-3">
+                <p>@uye.ad @uye.soyad</p>
+            </div>
+            <div class="col-md-3">
+                <a asp-controller="Ilan" asp-action="Ilanlar" class="btn btn-primary btn-square rounded-pill">
+                    <i class="bi bi-card-list"></i><br>
+                    Ana Sayfa
+                </a>
+            </div>
+            <div class="col-md-3">
+                <a asp-controller="Ilan" asp-action="Ilanlar" class="btn btn-primary btn-square rounded-pill">
+                    <i class="bi bi-card-list"></i><br>
+                    İlanlar
+                </a>
+            </div>
+            <div class="col-md-3">
+                <a asp-controller="Uye" asp-action="Profil" class="btn btn-primary btn-square rounded-pill">
+                    <i class="bi bi-person"></i><br>
+                    Profilim
+                </a>
+            </div>
+            <div class="col-md-3">
+                <a asp-controller="Uye" asp-action="Cikis" class="btn btn-primary btn-square rounded-pill">
+                    <i class="bi bi-box-arrow-right"></i><br>
+                    Çıkış Yap
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

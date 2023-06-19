@@ -1,0 +1,82 @@
+﻿@if (ViewBag.AracModel != null)
+{
+    var aracModel = (AracModeli)@ViewBag.AracModel;
+        <div class="alert alert-info">
+            <b>İşlem Başarılı</b>
+            <p>
+                @aracModel.modelAdi başarıyla eklendi.
+            </p>
+        </div>
+}
+
+@if(ViewBag.Hata != null){
+    @if(ViewBag.Hata != ""){
+        <div class="alert alert-danger">
+            @ViewBag.Hata
+        </div>
+    }
+}
+
+<div class="container">
+    <h1>Araç Modeli Ekle</h1>
+    <form asp-controller="SistemYoneticisi" asp-action="AracModelEkle">
+        <div class="form-group">
+            <label for="modelAdi">Model Adı:</label>
+            <input type="text" class="form-control" id="modelAdi" name="modelAdi">
+        </div>
+        <div class="form-group">
+            <label for="sanziman">Şanzıman:</label>
+            <input type="text" class="form-control" id="sanziman" name="sanziman">
+        </div>
+        <div class="form-group">
+            <label for="yakitTuru">Yakıt Türü:</label>
+            <input type="text" class="form-control" id="yakitTuru" name="yakitTuru">
+        </div>
+        <div class="form-group">
+            <label for="motorTuru">Motor Türü:</label>
+            <input type="text" class="form-control" id="motorTuru" name="motorTuru">
+        </div>
+        <div class="form-group">
+            <label for="uretimYili">Üretim Yılı:</label>
+            <input type="number" class="form-control" id="uretimYili" name="uretimYili">
+        </div>
+        <div class="form-group">
+            <label for="aracTuru">Araç Türü:</label>
+            <input type="text" class="form-control" id="aracTuru" name="aracTuru">
+        </div>
+        <button type="submit" class="btn btn-primary">Ekle</button>
+    </form>
+</div>
+
+@{
+    var Modeller = (List<AracModeli>)ViewBag.Modeller ?? new List<AracModeli>() { };
+}
+
+<div class="container">
+    <table class="table">
+    <thead>
+    <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Model Adı</th>
+        <th scope="col">Araç Türü</th>
+        <th scope="col">Motor Türü</th>
+        <th scope="col">Yakıt Türü</th>
+        <th scope="col">Şanzıman</th>
+        <th scope="col">Üretim Yılı</th>
+    </tr>
+    </thead>
+    <tbody>
+        @foreach(var Model in Modeller){
+            <tr>
+                <td scope="col">@Model.ID</td>
+                <td scope="col">@Model.modelAdi</td>
+                <td scope="col">@Model.aracTuru</td>
+                <td scope="col">@Model.motorTuru</td>
+                <td scope="col">@Model.yakitTuru</td>
+                <td scope="col">@Model.sanziman</td>
+                <td scope="col">@Model.uretimYili</td>
+            </tr>
+        }
+    </tbody>
+</table>
+</div>
